@@ -4,10 +4,12 @@ export default function renderCardsImages(images) {
     btnLoadMore: document.querySelector('.load-more'),
   };
   const { total, totalHits, hits } = images;
+  
   imgFound = [];
-  // const { webformatURL, tags, likes, views, comments, downloads } = hits;
-  // console.log(hits.webformatURL);
+  
+ 
   hits.map(hit => {
+    const { webformatURL, tags, likes, views, comments, downloads } = hit;
     imgFound += `
     <div class="photo-card">
       <img src="${webformatURL}" alt="${tags}" loading="lazy" />
