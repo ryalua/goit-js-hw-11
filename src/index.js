@@ -14,9 +14,9 @@ function hendleFormBtn(event) {
   event.preventDefault();
   fetchImages(refs.inputImageName.value.trim())
   .then(images => {
-    
+    console.log(images);
     renderCardsImages(images);
-   
+    // console.log(images);
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
