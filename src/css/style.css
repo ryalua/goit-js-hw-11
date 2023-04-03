@@ -20,9 +20,24 @@ body {
   height: 50px;
 }
 
-.search-form, input, button {
+.search-form, input {
   border: 0;
   border-radius: 4px;
+}
+
+button {
+  background-color: rgb(46, 0, 250);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 4px;
+}
+
+.load-more {
+  background-color: rgb(46, 0, 250);
+  color: #FFFFFF;
+  width: 150px;
+  height: 50px;
+  
 }
 
 .gallery {
@@ -50,5 +65,9 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.is-hidden {
+  opacity: 0;
 }
 

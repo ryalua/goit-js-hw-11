@@ -7,7 +7,7 @@ export default function fetchImages(name) {
   &page=${page}&image_type=photo&orientation=horizontal&safesearch=true`)
   .then(response => {
     
-    if(!response.ok ) {
+    if(!response.ok) {
       throw new Error(response.status);
     }
     return response.json();

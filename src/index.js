@@ -16,7 +16,7 @@ function hendleFormBtn(event) {
   .then(images => {
     
     renderCardsImages(images);
-   
+   console.log(images)
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
