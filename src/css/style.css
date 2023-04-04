@@ -10,6 +10,7 @@ body {
   font-family:Roboto, sans-serif; 
   letter-spacing: 0.03em;
 }
+/* <!-------------Heder------------------ */
 
 .container {
   display: flex;
@@ -32,13 +33,7 @@ button {
   border-radius: 4px;
 }
 
-.load-more {
-  background-color: rgb(46, 0, 250);
-  color: #FFFFFF;
-  width: 150px;
-  height: 50px;
-  
-}
+/* ----------------Main----------------------- */
 
 .gallery {
   display: flex;
@@ -65,6 +60,21 @@ button {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+/* ----------------Futer----------------------- */
+.futer {
+  display: flex;
+  justify-content: center;
+}
+
+.load-more {
+  background-color: rgb(46, 0, 250);
+  color: #FFFFFF;
+  width: 150px;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .is-hidden {
