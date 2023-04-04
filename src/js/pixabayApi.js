@@ -11,7 +11,7 @@ export default function fetchImages(name) {
       throw new Error(response.status);
     }
     return response.json();
-    
+    console.log(response)
 
   });
 };

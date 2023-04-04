@@ -13,6 +13,7 @@ export default function renderCardsImages(images) {
   if (totalHits === 0) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
   } 
+  
   hits.map(hit => {
     const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = hit;
     imgFound += `
@@ -36,8 +37,12 @@ export default function renderCardsImages(images) {
         </div>
       </a>
     `
-    refs.galleryImageCards.innerHTML = imgFound;
+    // refs.galleryImageCards.innerHTML = imgFound;
+    
   });
+  
+  refs.galleryImageCards.insertAdjacentHTML('beforeend', imgFound);
+  
   let gallary = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
