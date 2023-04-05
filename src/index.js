@@ -10,7 +10,6 @@ const refs = {
   btnLoadMore: document.querySelector('.load-more'),
 };
 
-let inputValue = refs.inputImageName.value.trim();
 
 refs.searchFormSubmit.addEventListener('submit', hendleFormBtn);
 refs.btnLoadMore.addEventListener('click', hendleLoadMore);
@@ -18,8 +17,8 @@ refs.btnLoadMore.addEventListener('click', hendleLoadMore);
 
 function hendleFormBtn(event) {
   event.preventDefault();
-  
-  fetchImages(refs.inputImageName.value.trim())
+  let inputValue = refs.inputImageName.value.trim();
+  fetchImages(inputValue, page)
   .then(images => {
     renderCardsImages(images);
     refs.btnLoadMore.classList.remove('is-hidden');
@@ -30,7 +29,7 @@ function hendleFormBtn(event) {
 };
 
 let page = 1;
-function hendleLoadMore(page) {
+function hendleLoadMore() {
   let inputValue = refs.inputImageName.value.trim();
   page += 1;
   console.log(page)
