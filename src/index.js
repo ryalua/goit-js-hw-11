@@ -10,31 +10,31 @@ const refs = {
   btnLoadMore: document.querySelector('.load-more'),
 };
 
+let inputValue = refs.inputImageName.value.trim();
+
 refs.searchFormSubmit.addEventListener('submit', hendleFormBtn);
 refs.btnLoadMore.addEventListener('click', hendleLoadMore);
 
-let page = 1;
 
 function hendleFormBtn(event) {
   event.preventDefault();
   
-  
   fetchImages(refs.inputImageName.value.trim())
   .then(images => {
-    
     renderCardsImages(images);
     refs.btnLoadMore.classList.remove('is-hidden');
-   console.log(images)
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
   });
 };
 
-function hendleLoadMore() {
-
- 
-  fetchImages(refs.inputImageName.value.trim())
+let page = 1;
+function hendleLoadMore(page) {
+  let inputValue = refs.inputImageName.value.trim();
+  page += 1;
+  console.log(page)
+  fetchImages(inputValue, page)
   .then((images) => {
     
     renderCardsImages(images);
@@ -42,5 +42,6 @@ function hendleLoadMore() {
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
   });
-  
-}
+};
+
+
