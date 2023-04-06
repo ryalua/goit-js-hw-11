@@ -20,7 +20,7 @@ function hendleFormBtn(event) {
   event.preventDefault();
   q = refs.inputImageName.value.trim();
   page = 1;
-  per_page = 100;
+  per_page = 40;
   if (q === '') {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     return;
@@ -30,10 +30,12 @@ function hendleFormBtn(event) {
     .then(hits => {
       refs.galleryImageCards.innerHTML = '';
       renderCardsImages(hits);
-
+      
       if (hits.totalHits / per_page < page) {
-      refs.btnLoadMore.classList.add('is-hidden');
-    };
+        refs.btnLoadMore.classList.add('is-hidden');
+        
+      };
+      
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
