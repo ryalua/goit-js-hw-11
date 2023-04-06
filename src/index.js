@@ -10,33 +10,48 @@ const refs = {
   btnLoadMore: document.querySelector('.load-more'),
 };
 
-
 refs.searchFormSubmit.addEventListener('submit', hendleFormBtn);
 refs.btnLoadMore.addEventListener('click', hendleLoadMore);
-
+let q = null;
+let page = 1;
+let per_page = null;
 
 function hendleFormBtn(event) {
   event.preventDefault();
-  let inputValue = refs.inputImageName.value.trim();
-  fetchImages(inputValue, page)
-  .then(images => {
-    renderCardsImages(images);
-    refs.btnLoadMore.classList.remove('is-hidden');
+  q = refs.inputImageName.value.trim();
+  page = 1;
+  per_page = 100;
+  if (q === '') {
+    Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+    return;
+  };
+  
+  fetchImages(q, page, per_page)
+    .then(hits => {
+      refs.galleryImageCards.innerHTML = '';
+      renderCardsImages(hits);
+
+      if (hits.totalHits / per_page < page) {
+      refs.btnLoadMore.classList.add('is-hidden');
+    };
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
   });
 };
 
-let page = 1;
 function hendleLoadMore() {
-  let inputValue = refs.inputImageName.value.trim();
+  let q = refs.inputImageName.value.trim();
   page += 1;
-  console.log(page)
-  fetchImages(inputValue, page)
-  .then((images) => {
+  
+  fetchImages(q, page, per_page)
+  .then((hits) => {
+    renderCardsImages(hits);
     
-    renderCardsImages(images);
+    if (hits.totalHits / per_page < page) {
+      refs.btnLoadMore.classList.add('is-hidden');
+      
+    };
   })
   .catch(() => {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
