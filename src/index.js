@@ -16,7 +16,34 @@ let q = null;
 let page = 1;
 let per_page = null;
 
-function hendleFormBtn(event) {
+// function hendleFormBtn(event) {
+//   event.preventDefault();
+//   q = refs.inputImageName.value.trim();
+//   page = 1;
+//   per_page = 40;
+//   if (q === '') {
+//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+//     return;
+//   };
+//   fetchImages(q, page, per_page)
+//     .then((hits) => {
+//       refs.galleryImageCards.innerHTML = '';
+//       renderCardsImages(hits);
+//       console.log(hits)
+
+//       if (hits.totalHits / per_page < page) {
+//         refs.btnLoadMore.classList.add('is-hidden');
+//       };
+      
+//   })
+//   .catch(() => {
+//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+//   });
+// };
+
+
+
+async function hendleFormBtn(event) {
   event.preventDefault();
   q = refs.inputImageName.value.trim();
   page = 1;
@@ -25,39 +52,52 @@ function hendleFormBtn(event) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     return;
   };
-  
-  fetchImages(q, page, per_page)
-    .then(hits => {
-      refs.galleryImageCards.innerHTML = '';
-      renderCardsImages(hits);
-      
-      if (hits.totalHits / per_page < page) {
-        refs.btnLoadMore.classList.add('is-hidden');
-        
-      };
-      
-  })
-  .catch(() => {
+  try {
+    const imgRespons = await fetchImages(q, page, per_page)
+    // const {total, totalHits, hits} = await fetchImages(q, page, per_page)
+    refs.galleryImageCards.innerHTML = '';
+    console.log(imgRespons)
+    renderCardsImages(imgRespons);
+    
+    if (imgRespons.totalHits / per_page < page) {
+      refs.btnLoadMore.classList.add('is-hidden');
+    };
+  } catch(err) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-  });
+  }
 };
 
-function hendleLoadMore() {
+// function hendleLoadMore() {
+//   let q = refs.inputImageName.value.trim();
+//   page += 1;
+  
+//   fetchImages(q, page, per_page)
+//   .then((hits) => {
+//     renderCardsImages(hits);
+    
+//     if (hits.totalHits / per_page < page) {
+//       refs.btnLoadMore.classList.add('is-hidden');
+      
+//     };
+//   })
+//   .catch(() => {
+//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+//   });
+// };
+
+
+async function hendleLoadMore() {
   let q = refs.inputImageName.value.trim();
   page += 1;
-  
-  fetchImages(q, page, per_page)
-  .then((hits) => {
-    renderCardsImages(hits);
-    
-    if (hits.totalHits / per_page < page) {
+  try {
+    const imgRespons = await fetchImages(q, page, per_page)
+    renderCardsImages(imgRespons);
+    if (imgRespons.totalHits / per_page < page) {
       refs.btnLoadMore.classList.add('is-hidden');
-      
     };
-  })
-  .catch(() => {
+  } catch (error) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-  });
+  };
 };
 
 

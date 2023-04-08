@@ -22,7 +22,7 @@ export default function renderCardsImages({total, totalHits, hits}) {
     imgFound += `
       <a class="gallery-link" href="${largeImageURL}">
         <div class="photo-card">
-          <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+          <img src="${webformatURL}" alt="${tags}" width="600" height="400" loading="lazy" />
           <div class="info">
             <p class="info-item">
               <b>Likes</b>${likes}
