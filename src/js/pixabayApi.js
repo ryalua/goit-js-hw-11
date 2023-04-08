@@ -7,27 +7,29 @@ export default function fetchImages(q, page, per_page) {
   return axios.get(`${BASE_URL}api/?key=${API_KEY}&q=${q}&per_page=${per_page}
   &page=${page}&image_type=photo&orientation=horizontal&safesearch=true`)
     .then((response) => {
-      // console.log(response)
-      return response.data;
       
+      return response.data;
+      console.log(response)
     })
     .catch(console.warn);
 };
 
 
 // export default async function fetchImages(q, page, per_page) {
-  
+
 //   try {
+
 //     return await axios.get(`${BASE_URL}api/?key=${API_KEY}&q=${q}&per_page=${per_page}
 //     &page=${page}&image_type=photo&orientation=horizontal&safesearch=true`);
-//     console.log(response.data);
+   
 //     return await response.data;
     
-//   }
+//   } 
 //   catch (err) {
-//     // throw new Error(err.message);
+//     throw new Error(err.message);
 //     console.log(err);
 //   };
+  
 // };
 
 
