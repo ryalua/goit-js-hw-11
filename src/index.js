@@ -16,84 +16,47 @@ let q = null;
 let page = 1;
 let per_page = null;
 
-// function hendleFormBtn(event) {
-//   event.preventDefault();
-//   q = refs.inputImageName.value.trim();
-//   page = 1;
-//   per_page = 40;
-//   if (q === '') {
-//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-//     return;
-//   };
-//   fetchImages(q, page, per_page)
-//     .then((hits) => {
-//       refs.galleryImageCards.innerHTML = '';
-//       renderCardsImages(hits);
-//       console.log(hits)
-
-//       if (hits.totalHits / per_page < page) {
-//         refs.btnLoadMore.classList.add('is-hidden');
-//       };
-      
-//   })
-//   .catch(() => {
-//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-//   });
-// };
-
-
-
 async function hendleFormBtn(event) {
   event.preventDefault();
   q = refs.inputImageName.value.trim();
   page = 1;
   per_page = 40;
-  if (q === '') {
+  // Проверка: Пустой ли массив при запросе?
+  if (q === '') { 
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     return;
   };
   try {
     const imgRespons = await fetchImages(q, page, per_page)
-    // const {total, totalHits, hits} = await fetchImages(q, page, per_page)
+    const {total, totalHits, hits} = imgRespons;
     refs.galleryImageCards.innerHTML = '';
-    console.log(imgRespons)
+    
     renderCardsImages(imgRespons);
     
-    if (imgRespons.totalHits / per_page < page) {
+    // Проверка: Дошол ли до конца колекции при submit формы?
+    if (totalHits / per_page < page) { 
       refs.btnLoadMore.classList.add('is-hidden');
+      Notify.warning("We're sorry, but you've reached the end of search results.");
+    } else if (totalHits !== 0) {
+      Notify.success(`Hooray! We found ${totalHits} images.`);
     };
+    
   } catch(err) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
   }
 };
-
-// function hendleLoadMore() {
-//   let q = refs.inputImageName.value.trim();
-//   page += 1;
-  
-//   fetchImages(q, page, per_page)
-//   .then((hits) => {
-//     renderCardsImages(hits);
-    
-//     if (hits.totalHits / per_page < page) {
-//       refs.btnLoadMore.classList.add('is-hidden');
-      
-//     };
-//   })
-//   .catch(() => {
-//     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-//   });
-// };
-
 
 async function hendleLoadMore() {
   let q = refs.inputImageName.value.trim();
   page += 1;
   try {
     const imgRespons = await fetchImages(q, page, per_page)
+    const {total, totalHits, hits} = imgRespons;
     renderCardsImages(imgRespons);
-    if (imgRespons.totalHits / per_page < page) {
+    // Проверка: Дошол ли до конца колекции при клике на LoadMore?
+    if (totalHits / per_page < page) {
       refs.btnLoadMore.classList.add('is-hidden');
+      Notify.warning("We're sorry, but you've reached the end of search results.");
     };
   } catch (error) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
