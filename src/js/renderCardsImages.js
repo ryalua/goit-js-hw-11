@@ -42,14 +42,6 @@ export default function renderCardsImages({total, totalHits, hits}) {
     `
   });
   refs.galleryImageCards.insertAdjacentHTML('beforeend', imgFound);
-  
-  let gallary = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-  scrollZoom: true,
-  scrollZoomFactor: 0.1,
-  });
-  gallary.refresh();
 };
 
 

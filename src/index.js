@@ -10,6 +10,13 @@ const refs = {
   btnLoadMore: document.querySelector('.load-more'),
 };
 
+let gallary = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  scrollZoom: true,
+  scrollZoomFactor: 0.1,
+  });
+
 refs.searchFormSubmit.addEventListener('submit', hendleFormBtn);
 refs.btnLoadMore.addEventListener('click', hendleLoadMore);
 let q = null;
@@ -32,14 +39,15 @@ async function hendleFormBtn(event) {
     refs.galleryImageCards.innerHTML = '';
     
     renderCardsImages(imgRespons);
-    
+    gallary.refresh();
     // Проверка: Дошол ли до конца колекции при submit формы?
-    if (totalHits / per_page < page) { 
-      refs.btnLoadMore.classList.add('is-hidden');
-      Notify.warning("We're sorry, but you've reached the end of search results.");
-    } else if (totalHits !== 0) {
+    if (totalHits !== 0) { 
       Notify.success(`Hooray! We found ${totalHits} images.`);
     };
+
+    if (totalHits / per_page < page) { 
+      refs.btnLoadMore.classList.add('is-hidden');
+   };
     
   } catch(err) {
     Notify.failure("Sorry, there are no images matching your search query. Please try again.");
@@ -53,6 +61,7 @@ async function hendleLoadMore() {
     const imgRespons = await fetchImages(q, page, per_page)
     const {total, totalHits, hits} = imgRespons;
     renderCardsImages(imgRespons);
+    gallary.refresh();
     // Проверка: Дошол ли до конца колекции при клике на LoadMore?
     if (totalHits / per_page < page) {
       refs.btnLoadMore.classList.add('is-hidden');
